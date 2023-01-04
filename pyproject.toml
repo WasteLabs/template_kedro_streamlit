@@ -23,10 +23,12 @@ packages = [{include = "template_kedro_streamlit"}]
 python = ">=3.10,<3.11"
 kedro = "^0.18.4"
 streamlit = "^1.16.0"
-pre-commit = "^2.21.0"
 awswrangler = "^2.18.0"
-autopep8 = "^2.0.1"
+keplergl = "^0.3.2"
+
+[tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
+autopep8 = "^2.0.1"
 flake8 = "^6.0.0"
 pylint = "^2.15.9"
 flake8-bugbear = "^22.12.6"
@@ -40,6 +42,7 @@ jupyterthemes = "^0.20.0"
 jupyter-contrib-nbextensions = "^0.7.0"
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
+pre-commit = "^2.21.0"
 
 
 [build-system]
