@@ -1,6 +1,6 @@
 [tool.kedro]
 package_name = "pipelines"
-project_name = "Iris"
+project_name = "Template_kedro_streamlit"
 project_version = "0.18.4"
 
 [tool.isort]
@@ -25,6 +25,7 @@ kedro = "^0.18.4"
 streamlit = "^1.16.0"
 awswrangler = "^2.18.0"
 keplergl = "^0.3.2"
+scikit-learn = "^1.2.0"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
