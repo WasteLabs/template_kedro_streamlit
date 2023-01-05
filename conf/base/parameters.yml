@@ -1,6 +1,7 @@
 train_fraction: 0.8
 random_state: 3
 target_column: species
+
 agg:
   group_columns:
     - species
@@ -10,7 +11,14 @@ agg:
   agg_params:
     - mean
     - median
+
 dashboards:
   pages:
     main:
       text: "This piece of text is paramerized over `conf/base/parameters.yaml`"
+    iris_aggregation:
+      agg_params:
+        - mean
+        - median
+        - count
+        - std
