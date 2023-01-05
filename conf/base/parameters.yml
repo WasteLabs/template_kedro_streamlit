@@ -1,3 +1,16 @@
 train_fraction: 0.8
 random_state: 3
 target_column: species
+agg:
+  group_columns:
+    - species
+  agg_columns:
+    - sepal_width
+    - petal_length
+  agg_params:
+    - mean
+    - median
+dashboards:
+  pages:
+    main:
+      text: "This piece of text is paramerized over `conf/base/parameters.yaml`"
