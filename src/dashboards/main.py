@@ -4,7 +4,6 @@ import sys
 from kedro.framework.startup import bootstrap_project
 import streamlit as st  # noqa: I201
 
-st.set_page_config(layout="wide")
 PROJECT_DIR = os.getcwd()
 if PROJECT_DIR not in sys.path:
     sys.path.append(PROJECT_DIR)
