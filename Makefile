@@ -22,4 +22,4 @@ env_install_jupyter_extensions:
 	&& jt -t grade3
 
 run_streamlit:
-	streamlit run --global.developmentMode false src/main.py
+	streamlit run --global.developmentMode false src/dashboards/main.py
