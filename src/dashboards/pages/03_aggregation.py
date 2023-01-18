@@ -1,12 +1,26 @@
-import streamlit as st
+import os
+import sys
 
-from src.dashboards import config  # noqa: I100,I201
-from src.shared import runner  # noqa: I100,I201
+from kedro.framework.startup import bootstrap_project
+import streamlit as st  # noqa: I201
+
+PROJECT_DIR = os.getcwd()
+if PROJECT_DIR not in sys.path:
+    sys.path.append(PROJECT_DIR)
+
+bootstrap_project(PROJECT_DIR)
+
+from src.dashboards import config  # noqa: I100,I201,E402
+from src.dashboards.shared import io  # noqa: I100,I201,E402
+from src.shared import runner  # noqa: I100,I201,E402
 
 
 def handler():
     left, right = st.columns(2, gap="small")
-    iris = st.session_state["catalog"].load(config.CATALOG_IRIS_REGISTRY)
+    iris = io.retrieve_data(
+        source_registry=config.CATALOG_IRIS_REGISTRY,
+        memory_registry=config.CATALOG_IRIS_INSTANCE,
+    )
     with left:
         st.dataframe(data=iris)
     with right:
@@ -35,6 +49,7 @@ def handler():
                 "agg.group_columns": group_columns,
                 "agg.agg_columns": agg_columns,
                 "agg.agg_params": agg_params,
+                config.PIPELINE_IRIS_AGG_INPUT: iris,
             },
             pipeline_name=config.PIPELINE_IRIS_AGG,
         )
