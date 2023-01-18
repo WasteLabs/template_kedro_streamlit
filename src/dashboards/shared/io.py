@@ -32,6 +32,6 @@ def retrieve_data(
         logging.info(f"Loading from catalog source registry: {source_registry}")
         cache_data(
             memory_registry=memory_registry,
-            data=MemoryDataSet(iris),
+            data=iris.copy(),
         )
     return iris
