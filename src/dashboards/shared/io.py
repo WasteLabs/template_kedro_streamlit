@@ -1,4 +1,5 @@
 import logging
+import typing as tp
 
 from kedro.io import MemoryDataSet
 import pandas as pd  # noqa: I201
@@ -23,3 +24,16 @@ def retreive_cached_data(
         )
         logging.info(f"Caching data to catalog as memory registry to: {memory_registry}")
     return iris
+
+
+def cached_data(
+    memory_registry: str,
+    data: tp.Any,
+):
+    catalog = st.session_state["catalog"]
+    catalog.add(
+        data_set_name=memory_registry,
+        data_set=MemoryDataSet(data),
+        replace=True,
+    )
+    logging.info(f"Caching data to catalog as memory registry to: {memory_registry}")
