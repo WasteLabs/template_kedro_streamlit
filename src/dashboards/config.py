@@ -14,7 +14,8 @@ PROJECT_DIR = os.getcwd()
 PROJECT_CONF_DIR = PROJECT_DIR + "/conf"
 PROJECT_PACKAGE_NAME = "pipelines"
 CATALOG_IRIS_REGISTRY = "example_iris_data"
-PIPELINE_IRIS_AGG = "iris_agg"
+PIPELINE_IRIS_AGG = "iris_agg_v2"
+PIPELINE_IRIS_AGG_INPUT = "iris_dataset"
 PIPELINE_IRIS_AGG_OUTPUT = "iris_aggregation"
 CATALOG_IRIS_INSTANCE = "instance"
 
