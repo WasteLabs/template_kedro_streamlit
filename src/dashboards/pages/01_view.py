@@ -15,7 +15,7 @@ from src.dashboards.shared import io  # noqa: I100,I201,E402
 
 
 def handler():
-    iris = io.retreive_cached_data(
+    iris = io.retrieve_data(
         source_registry=config.CATALOG_IRIS_REGISTRY,
         memory_registry=config.CATALOG_IRIS_INSTANCE,
     )

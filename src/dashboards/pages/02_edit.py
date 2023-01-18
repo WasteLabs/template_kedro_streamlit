@@ -48,7 +48,7 @@ def _get_edited_table(aggird_table: pd.DataFrame):
 
 
 def handler():
-    iris = io.retreive_cached_data(
+    iris = io.retrieve_data(
         source_registry=config.CATALOG_IRIS_REGISTRY,
         memory_registry=config.CATALOG_IRIS_INSTANCE,
     )
@@ -58,7 +58,7 @@ def handler():
 
     if is_pressed_update:
         edited_table = _get_edited_table(aggrid_table)
-        io.cached_data(
+        io.cache_data(
             memory_registry=config.CATALOG_IRIS_INSTANCE,
             data=edited_table,
         )
