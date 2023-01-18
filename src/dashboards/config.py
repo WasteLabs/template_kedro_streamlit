@@ -16,7 +16,7 @@ PROJECT_PACKAGE_NAME = "pipelines"
 CATALOG_IRIS_REGISTRY = "example_iris_data"
 PIPELINE_IRIS_AGG = "iris_agg"
 PIPELINE_IRIS_AGG_OUTPUT = "iris_aggregation"
-
+CATALOG_IRIS_INSTANCE = "instance"
 
 logger = logging.getLogger(__name__)
 
@@ -42,5 +42,6 @@ logger.info("unpacking kedro context...")
 # traditional kedro pipeline parameterization approach
 catalog = context.catalog
 parameters = context.params  # <= Heart of parameterization dashboard
-
+st.session_state["catalog"] = context.catalog
+st.session_state["parameters"] = context.params
 logger.info("finish application deployment...")
