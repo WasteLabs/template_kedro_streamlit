@@ -45,3 +45,9 @@
 example_iris_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/iris.csv
+  layer: 01_raw
+
+
+instance:
+  type: MemoryDataSet
+  layer: 02_intermediate

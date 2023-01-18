@@ -22,3 +22,70 @@ dashboards:
         - median
         - count
         - std
+    edit:
+      configure_column:
+        depot:
+          field: "depot"
+          editable: True
+          cellEditor: agSelectCellEditor
+          cellEditorParams:
+            values:
+              - Soho
+              - "Mandela Way"
+        type:
+          field: "type"
+          editable: True
+          cellEditor: agSelectCellEditor
+          cellEditorParams:
+            values:
+              - Van
+              - Bicycle
+        lat:
+          field: "lat"
+          editable: True
+        lon:
+          field: "lon"
+          editable: True
+        vehicle_id:
+          field: "vehicle_id"
+          editable: True
+        capacity:
+          field: "# box capacity"
+          editable: True
+        cost_per_km:
+          field: "Cost (£) per km"
+          editable: True
+        cost_per_h:
+          field: "Cost (£) per hour"
+          editable: True
+        shift_start_time:
+          field: "shift_start_time"
+          editable: True
+          cellEditor: "agSelectCellEditor"
+          cellEditorParams:
+            values:
+              - "07:00"
+              - "08:00"
+              - "09:00"
+              - "10:00"
+              - "11:00"
+              - "12:00"
+              - "13:00"
+              - "14:00"
+              - "15:00"
+              - "16:00"
+              - "17:00"
+              - "18:00"
+        average_duration:
+          field: "Average TAT per delivery (minutes)"
+          editable: True
+      AgGrid:
+        columns_auto_size_mode: "FIT_CONTENTS"
+        data_return_mode: AS_INPUT
+        fit_columns_on_grid_load: False
+        theme: streamlit
+        enable_enterprise_modules: True
+        width: "100%"
+        reload_data: False
+        editable: True
+        allow_unsafe_jscode: True
