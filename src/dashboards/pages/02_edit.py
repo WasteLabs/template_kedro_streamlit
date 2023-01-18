@@ -16,6 +16,7 @@ if PROJECT_DIR not in sys.path:
 bootstrap_project(PROJECT_DIR)
 
 from src.dashboards import config  # noqa: I100,I201,E402
+from src.dashboards import decorators  # noqa: I100,I201,E402
 from src.dashboards.shared import io  # noqa: I100,I201,E402
 
 
@@ -47,6 +48,11 @@ def _get_edited_table(aggird_table: pd.DataFrame):
     return pd.DataFrame(aggird_table["data"])
 
 
+@decorators.kedro_context_required(
+    project_dir=config.PROJECT_DIR,
+    project_conf_dir=config.PROJECT_CONF_DIR,
+    package_name=config.PROJECT_PACKAGE_NAME,
+)
 def handler():
     iris = io.retrieve_data(
         source_registry=config.CATALOG_IRIS_REGISTRY,

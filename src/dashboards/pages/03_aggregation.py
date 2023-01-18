@@ -16,6 +16,11 @@ from src.shared import runner  # noqa: I100,I201,E402
 from src.dashboards import decorators  # noqa: I100,I201,E402
 
 
+@decorators.kedro_context_required(
+    project_dir=config.PROJECT_DIR,
+    project_conf_dir=config.PROJECT_CONF_DIR,
+    package_name=config.PROJECT_PACKAGE_NAME,
+)
 @decorators.cached_table_required(
     memory_registry=config.CATALOG_IRIS_INSTANCE,
 )
@@ -28,20 +33,21 @@ def handler():
     with left:
         st.dataframe(data=iris)
     with right:
+        parameters = st.session_state["parameters"]
         group_columns = st.multiselect(
             label="Choose grouping columns",
             options=list(iris.columns),
-            default=config.parameters["agg"]["group_columns"],
+            default=parameters["agg"]["group_columns"],
         )
         agg_columns = st.multiselect(
             label="Choose aggregation columns",
             options=list(iris.columns),
-            default=config.parameters["agg"]["agg_columns"],
+            default=parameters["agg"]["agg_columns"],
         )
         agg_params = st.multiselect(
             label="Choose aggregation function",
-            options=config.parameters["dashboards"]["pages"]["iris_aggregation"]["agg_params"],
-            default=config.parameters["agg"]["agg_params"],
+            options=parameters["dashboards"]["pages"]["iris_aggregation"]["agg_params"],
+            default=parameters["agg"]["agg_params"],
         )
         is_aggregation_triggered = st.button(label="Run data aggregation")
 
