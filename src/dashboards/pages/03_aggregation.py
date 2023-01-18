@@ -13,8 +13,12 @@ bootstrap_project(PROJECT_DIR)
 from src.dashboards import config  # noqa: I100,I201,E402
 from src.dashboards.shared import io  # noqa: I100,I201,E402
 from src.shared import runner  # noqa: I100,I201,E402
+from src.dashboards import decorators  # noqa: I100,I201,E402
 
 
+@decorators.cached_table_required(
+    memory_registry=config.CATALOG_IRIS_INSTANCE,
+)
 def handler():
     left, right = st.columns(2, gap="small")
     iris = io.retrieve_data(
