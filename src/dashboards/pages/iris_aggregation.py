@@ -6,7 +6,7 @@ from src.shared import runner  # noqa: I100,I201
 
 def handler():
     left, right = st.columns(2, gap="small")
-    iris = config.catalog.load(config.CATALOG_IRIS_REGISTRY)
+    iris = st.session_state["catalog"].load(config.CATALOG_IRIS_REGISTRY)
     with left:
         st.dataframe(data=iris)
     with right:
