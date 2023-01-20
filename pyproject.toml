@@ -17,7 +17,7 @@ version = "0.1.0"
 description = ""
 authors = ["ARashitov <adil.rashitov.98@gmail.com>"]
 readme = "README.md"
-packages = [{include = "template_kedro_streamlit"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
