@@ -16,6 +16,28 @@ dashboards:
   pages:
     main:
       text: "This piece of text is paramerized over `conf/base/parameters.yaml`"
+    view:
+      transformation:
+        duplicate_arg:
+          "Sepal length": "sepal_length"
+        rename_arg:
+          "sepal_width": "Sepal width"
+          "petal_width": "Petal Width"
+          "petal_length": "Petal Length"
+          "species": "Species"
+        soft_upsert_arg:
+          species: "unknown species"
+          species_detail: "unknown species"
+        fillna_arg:
+          missing_col: default
+        replace_arg:
+          species:
+            versicolor: "type #1"
+            setosa: "type #2"
+        drop_arg:
+          - sepal_length
+
+
     iris_aggregation:
       agg_params:
         - mean

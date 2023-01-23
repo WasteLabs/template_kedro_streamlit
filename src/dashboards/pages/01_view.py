@@ -13,6 +13,7 @@ bootstrap_project(PROJECT_DIR)
 from src.dashboards import config  # noqa: I100,I201,E402
 from src.dashboards import decorators  # noqa: I100,I201,E402
 from src.dashboards.shared import io  # noqa: I100,I201,E402
+from src.dashboards.shared.models import ViewTransformer  # noqa: I100,I201,E402
 
 
 @decorators.kedro_context_required(
@@ -25,6 +26,12 @@ def handler():
         source_registry=config.CATALOG_IRIS_REGISTRY,
         memory_registry=config.CATALOG_IRIS_INSTANCE,
     )
+
+    parameters = st.session_state["parameters"]
+    view_transform = parameters["dashboards"]["pages"]["view"]["transformation"]
+    transformer = ViewTransformer(**view_transform)
+    iris = transformer.transform(df=iris)
+
     st.dataframe(data=iris)
 
 
