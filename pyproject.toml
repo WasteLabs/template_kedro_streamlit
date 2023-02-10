@@ -26,6 +26,8 @@ streamlit = "^1.16.0"
 awswrangler = "^2.18.0"
 keplergl = "^0.3.2"
 scikit-learn = "^1.2.0"
+streamlit-aggrid = "^0.3.3"
+pydantic = "^1.10.4"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"

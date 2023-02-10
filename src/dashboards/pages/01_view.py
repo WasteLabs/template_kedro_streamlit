@@ -12,6 +12,8 @@ bootstrap_project(PROJECT_DIR)
 
 from src.dashboards import config  # noqa: I100,I201,E402
 from src.dashboards import decorators  # noqa: I100,I201,E402
+from src.dashboards.shared import io  # noqa: I100,I201,E402
+from src.dashboards.shared.models import ViewTransformer  # noqa: I100,I201,E402
 
 
 @decorators.kedro_context_required(
@@ -20,15 +22,17 @@ from src.dashboards import decorators  # noqa: I100,I201,E402
     package_name=config.PROJECT_PACKAGE_NAME,
 )
 def handler():
-    st.markdown(
-        "# 📄 Template Kedro streamlit \n"
-        "Template project for integration of UI of streamlit to data pipelines.\n"
-        "Navigate to `iris_aggregation` page\n",
+    iris = io.retrieve_data(
+        source_registry=config.CATALOG_IRIS_REGISTRY,
+        memory_registry=config.CATALOG_IRIS_INSTANCE,
     )
+
     parameters = st.session_state["parameters"]
-    st.text(
-        f'{parameters["dashboards"]["pages"]["main"]["text"]}',
-    )
+    view_transform = parameters["dashboards"]["pages"]["view"]["transformation"]
+    transformer = ViewTransformer(**view_transform)
+    iris = transformer.transform(df=iris)
+
+    st.dataframe(data=iris)
 
 
 if __name__ == "__main__":

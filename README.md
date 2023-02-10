@@ -14,3 +14,6 @@ Template project for integration of UI of streamlit to data pipelines
 - Before running you need to create environment following section above
 - Activate shell environment: `poetry shell`
 - Execute streamlit by hitting: `make run_streamlit`
+
+## Researches
+- [How to manage data over different pages with edit support and isolatency between streamlit sessions](docs/experiment_notes/20230117_adil_kedro_catelog_st_session_data_link.md.md)
