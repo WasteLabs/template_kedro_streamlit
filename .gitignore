@@ -361,3 +361,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# streamlit
+
+.streamlit/secrets.toml
