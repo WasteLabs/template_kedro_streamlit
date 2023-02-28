@@ -1,0 +1,26 @@
+{
+    "python.autoComplete.extraPaths": [
+        "./src"
+    ],
+    "python.testing.pytestArgs": [],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
+    "code-runner.executorMap": {
+        "python": "\"$pythonPath\" $fullFileName",
+    },
+    "editor.formatOnSaveMode": "file",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/kedro-org/kedro/develop/static/jsonschema/kedro-catalog-0.18.json": "conf/**/*catalog*"
+    },
+}

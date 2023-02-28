@@ -1,0 +1,49 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // Kedro tasks
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install",
+            "type": "shell",
+            "command": "${cwd}/.venv/bin/kedro",
+            "args": [
+                "install"
+            ]
+        },
+        {
+            "label": "Test",
+            "group": "test",
+            "type": "shell",
+            "command": "${cwd}/.venv/bin/kedro",
+            "args": [
+                "test"
+            ]
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "${cwd}/.venv/bin/kedro",
+            "args": [
+                "run"
+            ]
+        },
+        // This is the default build task
+        {
+            "label": "Package",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "type": "shell",
+            "command": "${cwd}/.venv/bin/kedro",
+            "args": [
+                "package"
+            ],
+            // Will run `Test` before packaging
+            "dependsOn": [
+                "Test"
+            ]
+        }
+    ]
+}
