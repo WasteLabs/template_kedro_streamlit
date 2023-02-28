@@ -19,7 +19,6 @@ CATALOG_IRIS_INSTANCE = "instance"
 logger = logging.getLogger(__name__)
 
 logger.info("start application deployment...")
-st.set_page_config(layout="wide")
 logger.debug(f"PROJECT DIRECTORY: {PROJECT_DIR}")
 logger.debug(f"PROJECT CONFIGURATION DIRECTORY: {PROJECT_CONF_DIR}")
 

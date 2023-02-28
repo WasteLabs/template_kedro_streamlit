@@ -1,8 +1,8 @@
 import os
 import sys
 
-from kedro.framework.startup import bootstrap_project
 import streamlit as st  # noqa: I201
+from kedro.framework.startup import bootstrap_project
 
 PROJECT_DIR = os.getcwd()
 if PROJECT_DIR not in sys.path:
@@ -12,6 +12,8 @@ bootstrap_project(PROJECT_DIR)
 
 from src.dashboards import config  # noqa: I100,I201,E402
 from src.dashboards import decorators  # noqa: I100,I201,E402
+
+st.set_page_config(layout="wide")
 
 
 @decorators.kedro_context_required(
