@@ -1,6 +1,6 @@
 [tool.kedro]
 package_name = "pipelines"
-project_name = "Template_kedro_streamlit"
+project_name = "template_kedro_streamlit"
 project_version = "0.18.4"
 
 [tool.isort]
@@ -12,41 +12,28 @@ show_missing = true
 exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
 
 [tool.poetry]
-name = "template-kedro-streamlit"
+name = "template_kedro_streamlit"
 version = "0.1.0"
 description = ""
-authors = ["ARashitov <adil.rashitov.98@gmail.com>"]
+authors = ["Waste Labs <info@wastelabs.co>"]
 readme = "README.md"
 packages = []
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-kedro = "^0.18.4"
-streamlit = "^1.16.0"
+kedro = "^0.18.5"
+kedro-viz = "^5.3.0"
+streamlit = "^1.19.0"
 awswrangler = "^2.18.0"
 keplergl = "^0.3.2"
+black = "^22.12.0"
 scikit-learn = "^1.2.0"
+geopy = "^2.3.0"
 streamlit-aggrid = "^0.3.3"
-pydantic = "^1.10.4"
-
-[tool.poetry.group.dev.dependencies]
-jupyter = "^1.0.0"
-autopep8 = "^2.0.1"
-flake8 = "^6.0.0"
-pylint = "^2.15.9"
-flake8-bugbear = "^22.12.6"
-flake8-builtins = "^2.1.0"
-flake8-cognitive-complexity = "^0.1.0"
-flake8-commas = "^2.1.0"
-flake8-functions = "^0.0.7"
-flake8-import-order = "^0.18.2"
-jupyter-contrib-core = "^0.4.2"
-jupyterthemes = "^0.20.0"
-jupyter-contrib-nbextensions = "^0.7.0"
-pytest = "^7.2.0"
-pytest-cov = "^4.0.0"
-pre-commit = "^2.21.0"
-
+pydantic = "^1.10.5"
+fsspec = "2022.11.0"
+s3fs = "2022.11.0"
+skimpy = {git = "https://github.com/aeturrell/skimpy.git"}
 
 [build-system]
 requires = ["poetry-core"]
