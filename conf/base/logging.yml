@@ -40,8 +40,6 @@ loggers:
   kedro:
     level: INFO
 
-  iris:
-    level: INFO
-
 root:
+  level: INFO
   handlers: [rich, info_file_handler, error_file_handler]
