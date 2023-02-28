@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+    osrm_service:
+        image: public.ecr.aws/u6u7x5n5/dev_osrm_service:1.0.0
+        environment:
+            - OSRM_PBF_URL=https://download.bbbike.org/osm/extract/planet_-8.164_54.387_692b24b2.osm.pbf
+            - OSRM_GRAPH_PROFILE_URL=https://raw.githubusercontent.com/WasteLabs/osrm_profiles/master/truck_v1.lua
+            - OSRM_MAX_MATCHING_SIZE=86400
+        ports:
+            - 5001:5000
+        restart: always
