@@ -42,11 +42,16 @@
 # This is a data set used by the "Hello World" example pipeline provided with the project
 # template. Please feel free to remove it once you remove the example pipeline.
 
+# APIs
+
+# gmaps_geocoder:
+#   type: src.pipelines.extras.datasets.gmaps_geocoder.GmapsGeocoder
+#   credentials: google_maps_api
+
 example_iris_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/iris.csv
   layer: 01_raw
-
 
 instance:
   type: MemoryDataSet
