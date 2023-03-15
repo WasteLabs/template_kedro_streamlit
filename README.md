@@ -7,6 +7,8 @@ Template project for integration of streamlit and kedro
 - To create & install dependencies: `make env_configure`
 - To activate python env in shell: `make env_use`
 
+Use `source $(poetry env info --path)/bin/activate` if you are having issues.
+
 Optional:
 
 - To install jupyter extensions: `make env_install_jupyter_extensions`
