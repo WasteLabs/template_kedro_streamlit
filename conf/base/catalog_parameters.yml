@@ -3,6 +3,6 @@
 parameters__test:
   type: PartitionedDataSet
   dataset:
-    type: pandas.CSVDataSet
+    type: yaml.YAMLDataSet
   path: data/00_parameters/test/
   filename_suffix: .yml
