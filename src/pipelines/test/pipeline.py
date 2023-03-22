@@ -15,13 +15,14 @@ def create_pipeline(**kwargs) -> Pipeline:
                 func=nodes.return_head,
                 inputs=[
                     "example_iris_data",
+                    "params:head_size",
                 ],
                 outputs="example_iris_data_head",
                 name="return_head",
             ),
             node(
                 func=nodes.return_partitioned_head,
-                inputs=["example_iris_data", "params:session_key"],
+                inputs=["example_iris_data", "params:head_size", "params:session_key"],
                 outputs="example_iris_data_head_partitioned",
                 name="return_partitioned_head",
             ),

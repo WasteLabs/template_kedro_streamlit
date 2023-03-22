@@ -56,6 +56,26 @@ test_path = "dashboards.pages.main.text"
 st.write("Test path: ", test_path)
 st.success(params.load(test_path))
 
+st.subheader("Test creating a new parameter")
+
+try:
+    params.load("new.parameter.file")
+except:
+    st.error("Parameter does not yet exist")
+
+params.save("new.parameter.file", "test")
+st.write(params.load("new.parameter.file"))
+
+st.subheader("Test appending a new parameter")
+
+try:
+    params.load("new.parameter.file2")
+except:
+    st.error("Parameter does not yet exist")
+
+params.save("new.parameter.file2", "test2")
+st.write(params.load("new.parameter"))
+
 st.header("Test catalog load and save")
 
 df = catalog.load("example_iris_data")

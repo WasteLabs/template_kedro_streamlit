@@ -4,158 +4,78 @@ import shutil
 import streamlit as st  # noqa: I201
 
 from dashboards.kedro_wrapper import catalog, context, params
+from dashboards.kedro_wrapper.pipelines import initiate_pipeline
 
 st.set_page_config(layout="wide")
 
-st.write("Page for testing kedro wrapper")
+st.write("Page for testing kedro pipeline")
 
 st.subheader("Init context")
 
 context.start_kedro_session()
-st.success(st.session_state["kedro"])
+st.write("Special parameters for our `test` pipeline")
+st.write(params.load("head_size"))
+st.write(params.load("session_key"))
 
-st.subheader("Test parameters loaded")
+st.subheader("Init pipeline")
 
-test_path = "dashboards.pages.main.text"
-st.write("Test path: ", test_path)
-st.success(params.load(test_path))
+test_pipeline = initiate_pipeline("test")
+st.write(test_pipeline)
+st.write(st.session_state["kedro"]["pipelines"]["test"])
 
-test_path = "dashboards.pages.main"
-st.write("Test path: ", test_path)
-st.success(params.load(test_path))
+st.write("List of available parameter files")
+st.write(test_pipeline.list_param_files())
+st.write("Current params")
+st.write(test_pipeline.params())
+parameter_file = "super_test"
+test_pipeline.set_key(parameter_file)
+test_pipeline.set_param("session_key", parameter_file)
+st.write(test_pipeline.get_param("session_key"))
+test_pipeline.save_params("super_test", reload_catalog=True)
+st.write(test_pipeline.list_param_files())
+st.write(catalog.load("parameters__test", key=parameter_file)["session_key"])
 
-test_path = "dashboards"
-st.write("Test path: ", test_path)
-st.success(params.load(test_path))
+st.subheader("Run pipeline")
 
-st.subheader("Test parameters saved")
+st.write("Available pipeline output")
+st.write(catalog.list_partition("example_iris_data_head_partitioned"))
+parameter_file = "test_run"
+test_pipeline.set_key(parameter_file)
+test_pipeline.set_param("session_key", parameter_file)
+test_pipeline.run()
 
-test_path = "dashboards.pages.main.text"
-value = "New_value"
-st.write("Test path: ", test_path, value)
-params.save(test_path, value)
-st.success(params.load(test_path))
+st.write("List of available parameter files, new one autosaved")
+st.write(test_pipeline.list_param_files())
 
-test_path = "dashboards.pages.main"
-value = {"test1", "test2"}
-st.write("Test path: ", test_path, value)
-params.save(test_path, value)
-st.success(params.load(test_path))
+st.write("Available pipeline output")
+st.write(catalog.list_partition("example_iris_data_head_partitioned"))
 
-test_path = "dashboards.pages"
-value = ["1", "2", "3"]
-st.write("Test path: ", test_path, value)
-params.save(test_path, value)
-st.success(params.load(test_path))
-
-st.subheader("Test parameters re-loaded")
-
-context.reload_parameters()
-
-test_path = "dashboards.pages.main.text"
-st.write("Test path: ", test_path)
-st.success(params.load(test_path))
-
-st.header("Test catalog load and save")
-
-df = catalog.load("example_iris_data")
-st.write(df)
-
-st.write("Should give an error:")
-try:
-    catalog.load("example_iris_data_save")
-except:
-    st.error("Error")
-
-st.write("Save and load (works even though it's in memory):")
-catalog.save("example_iris_data_save", df.head(1))
-df_head = catalog.load("example_iris_data_save")
-st.write(df_head)
+st.write("Output")
+st.write(catalog.load("example_iris_data_head_partitioned", key=parameter_file))
 
 
-st.write("Save and load to file:")
-catalog.save("example_iris_data_save_2", df.head(1))
-df_head = catalog.load("example_iris_data_save_2")
-st.write(df_head)
+st.subheader("Run pipeline again")
+parameter_file = "test_run_head_1"
+test_pipeline.set_key(parameter_file)
+test_pipeline.set_param("session_key", parameter_file)
+test_pipeline.set_param("head_size", 1)
+st.write("Available parameter files")
+st.write(test_pipeline.list_param_files())
+test_pipeline.run()
+st.write("Available parameter files (new auto saved)")
+st.write(test_pipeline.list_param_files())
+st.write("Available pipeline output")
+st.write(catalog.list_partition("example_iris_data_head_partitioned"))
+st.write("Output")
+st.write(catalog.load("example_iris_data_head_partitioned", key=parameter_file))
 
+project_path = context.get_project_dir()
 
-st.write("Check context reset")
-context.reload_catalog()
-st.write("Should give an error again:")
-try:
-    df_head = catalog.load("example_iris_data_save")
-except:
-    st.error("Error")
+test_path = project_path + "/data/00_parameters/"
+shutil.rmtree(test_path)
 
-st.write("But this will work:")
-df_head = catalog.load("example_iris_data_save_2")
-st.write(df_head)
+test_path = project_path + "/data/02_intermediate/example_iris_data_head_partitioned/"
+shutil.rmtree(test_path)
 
-st.write("Cleaning up the test file:")
-test_path = (
-    st.session_state["kedro"]["config"]["project_dir"]
-    + "/data/02_intermediate/iris_save_2.csv"
-)
-st.success(os.path.exists(test_path))
+test_path = project_path + "/data/02_intermediate/iris_head.csv"
 os.remove(test_path)
-st.success(os.path.exists(test_path))
-
-st.header("Test catalog partitioned load and save")
-
-st.write("Load list")
-
-df_list = catalog.list_partition("partition")
-st.write(df_list)
-
-
-st.write("Load empty partition")
-
-df_list = catalog.list_partition("empty_partition")
-st.write(df_list)
-
-st.write("Load partition file")
-
-df = catalog.load("partition", "iris")
-st.write(df)
-
-st.write("Save partition file")
-catalog.save("empty_partition", df, "iris2")
-df_list = catalog.list_partition("empty_partition")
-st.write(df_list)
-
-df2 = catalog.load("empty_partition", "iris2")
-st.write(df2)
-
-test_path = (
-    st.session_state["kedro"]["config"]["project_dir"] + "/data/02_intermediate/test/"
-)
-st.success(os.path.exists(test_path))
-shutil.rmtree(test_path)
-st.success(os.path.exists(test_path))
-
-st.write("External (non kedro) partition edit:")
-
-catalog.save("empty_partition", df, "iris2")
-df_list = catalog.list_partition("empty_partition")
-st.write(df_list)
-
-test_path = (
-    st.session_state["kedro"]["config"]["project_dir"] + "/data/02_intermediate/test/"
-)
-st.success(os.path.exists(test_path))
-shutil.rmtree(test_path)
-st.success(os.path.exists(test_path))
-
-st.write("It should now be empty again (but we see it's  not):")
-df_list = catalog.list_partition("empty_partition")
-st.write(df_list)
-
-try:
-    df2 = catalog.load("empty_partition", "iris2")
-except:
-    st.error("Error, because file is not there anymore")
-
-context.reload_catalog()
-st.write("It should now be empty:")
-df_list = catalog.list_partition("empty_partition")
-st.write(df_list)

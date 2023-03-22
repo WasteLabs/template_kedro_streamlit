@@ -27,19 +27,23 @@ def get_package_name() -> str:
 def create_config(project_dir: str):
     if "kedro" in st.session_state:
         logger.warning("Kedro session already initiated and will be overwritten")
-    logger.info(f"Kedro session initiated with path {project_dir}")
+    logger.info(f"Kedro session initiated at {project_dir}")
     st.session_state["kedro"] = {}
     st.session_state["kedro"]["config"] = {}
     st.session_state["kedro"]["config"]["project_dir"] = project_dir
     st.session_state["kedro"]["config"]["project_conf_dir"] = project_dir + "/conf"
     st.session_state["kedro"]["config"]["package_name"] = "pipelines"
+    st.session_state["kedro"]["pipelines"] = {}
 
 
-def bootstrap_kedro_project(project_dir: str | None = None):
+def bootstrap_kedro_project(project_dir: str | None = None, overwrite=False):
+    if "kedro" in st.session_state and overwrite is False:
+        logger.info("Kedro session already initiated")
+        return None
     if project_dir is None:
         project_dir = os.getcwd()
         logger.info("Project directory not provided, using current working directory")
-    logger.info("Initiating project with at: %s", project_dir)
+    logger.info("Initiating project at: %s", project_dir)
     if project_dir not in sys.path:
         sys.path.append(project_dir)
     bootstrap_project(project_dir)
@@ -63,14 +67,14 @@ def load_context():
 def initiate_context():
     context = load_context()
     if "catalog" in st.session_state["kedro"]:
-        logger.warning("Kedro catalog already initiated.")
+        logger.info("Kedro catalog already initiated.")
     else:
         st.session_state["kedro"][
             "catalog_counter"
         ] = 0  # useful to force update cashed functions
         st.session_state["kedro"]["catalog"] = context.catalog
     if "parameters" in st.session_state["kedro"]:
-        logger.warning("Kedro parameters already initiated")
+        logger.info("Kedro parameters already initiated")
     else:
         st.session_state["kedro"][
             "parameters_counter"
