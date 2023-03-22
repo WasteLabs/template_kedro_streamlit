@@ -1,0 +1,11 @@
+# APIs
+
+gmaps_geocoder:
+  type: pipelines.extras.datasets.gmaps_geocoder.GmapsGeocoder
+  credentials: google_maps_api
+  layer: apis
+
+osrm_ports:
+  type: pipelines.extras.datasets.osrm_ports.OsrmPorts
+  credentials: osrm_api
+  layer: apis

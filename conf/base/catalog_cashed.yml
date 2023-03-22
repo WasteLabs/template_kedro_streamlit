@@ -1,0 +1,59 @@
+# .cashed
+
+## geocoding
+
+geocoded_address_google_compare:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_cash
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
+
+geocoded_address_google_cash:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_cash
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
+
+geocoded_address_google_failed:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_failed
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
+
+geocoded_address_google_cash_v2:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_cash
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
+
+geocoded_address_google_failed_v2:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_failed
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
+
+geocoded_address_google_cash_v3:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_cash
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
+
+geocoded_address_google_failed_v3:
+  type: PartitionedDataSet
+  path: data/.cashed/geocoding/geocoded_address_google_failed
+  dataset: json.JSONDataSet
+  filename_suffix: .json
+  credentials: dev_s3
+  layer: .cashed
