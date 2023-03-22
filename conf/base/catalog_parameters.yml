@@ -1,0 +1,8 @@
+# yaml file for parameters, each pipeline that will be exposed to streamlit should have it's own catalog entry,
+
+parameters__test:
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+  path: data/00_parameters/test/
+  filename_suffix: .yml

@@ -33,6 +33,7 @@ def create_config(project_dir: str):
     st.session_state["kedro"]["config"]["project_dir"] = project_dir
     st.session_state["kedro"]["config"]["project_conf_dir"] = project_dir + "/conf"
     st.session_state["kedro"]["config"]["package_name"] = "pipelines"
+    st.session_state["kedro"]["pipelines"] = {}
 
 
 def bootstrap_kedro_project(project_dir: str | None = None):
