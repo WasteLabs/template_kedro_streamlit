@@ -27,7 +27,7 @@ def get_package_name() -> str:
 def create_config(project_dir: str):
     if "kedro" in st.session_state:
         logger.warning("Kedro session already initiated and will be overwritten")
-    logger.warning(f"Kedro session initiated with path {project_dir}")
+    logger.info(f"Kedro session initiated with path {project_dir}")
     st.session_state["kedro"] = {}
     st.session_state["kedro"]["config"] = {}
     st.session_state["kedro"]["config"]["project_dir"] = project_dir
@@ -60,13 +60,13 @@ def load_context():
     return context
 
 
-def initiate_context(reload: bool = False):
+def initiate_context():
     context = load_context()
-    if "catalog" in st.session_state["kedro"] and not reload:
+    if "catalog" in st.session_state["kedro"]:
         logger.info("Kedro catalog already initiated")
     else:
         st.session_state["kedro"]["catalog"] = context.catalog
-    if "parameters" in st.session_state["parameters"] and not reload:
+    if "parameters" in st.session_state["kedro"]:
         logger.info("Kedro parameters already initiated")
     else:
         st.session_state["kedro"]["parameters"] = context.params
@@ -74,13 +74,26 @@ def initiate_context(reload: bool = False):
 
 def start_kedro_session(project_dir: str | None = None):
     bootstrap_kedro_project(project_dir)
-    initiate_context(reload=True)
+    initiate_context()
+
+
+def reload_parameters():
+    logger.info("Reloading Kedro parameters")
+    if "parameters" in st.session_state["kedro"]:
+        logger.warning("Kedro parameters already initiated and will be overwritten")
+    context = load_context()
+    st.session_state["kedro"]["parameters"] = context.params
+
+
+def reload_catalog():
+    logger.info("Reloading Kedro parameters")
+    if "catalog" in st.session_state["kedro"]:
+        logger.warning("Kedro catalog already initiated and will be overwritten")
+    context = load_context()
+    st.session_state["kedro"]["catalog"] = context.catalog
 
 
 def reload_context():
     logger.info("Reloading Kedro context")
-    if "catalog" in st.session_state["kedro"]:
-        logger.warning("Kedro catalog already initiated and will be overwritten")
-    if "parameters" in st.session_state["kedro"]:
-        logger.warning("Kedro parameters already initiated and will be overwritten")
-    initiate_context(reload=True)
+    reload_parameters()
+    reload_catalog()
