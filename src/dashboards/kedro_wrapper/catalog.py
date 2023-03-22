@@ -15,10 +15,10 @@ def load_full_partition(dataset):
         files = load(dataset)
     except DataSetError as error:
         if "No partitions found in" in str(error):
-            logger.info("DataSetError: {str(error)}")
+            logger.info(f"DataSetError: {str(error)}")
             files = None
         else:
-            logger.error("DataSetError: {str(error)}")
+            logger.error(f"DataSetError: {str(error)}")
             raise DataSetError(str(error))
     return files
 
@@ -31,7 +31,7 @@ def load(
     data = catalog.load(dataset)
     logger.info(f"Loading from catalog source registry: `{dataset}` with key `{key}`")
     if key is not None:
-        data = data[key]
+        data = data[key]()
     return data
 
 
@@ -56,8 +56,3 @@ def save(
         data = {key: data}
     data = catalog.save(dataset, data)
     logger.info(f"Saved data: `{dataset}` with key `{key}`")
-
-
-
-
-
