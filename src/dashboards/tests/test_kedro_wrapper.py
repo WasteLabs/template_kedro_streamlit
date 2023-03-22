@@ -1,4 +1,5 @@
 import os
+import shutil
 
 import streamlit as st  # noqa: I201
 
@@ -55,7 +56,7 @@ test_path = "dashboards.pages.main.text"
 st.write("Test path: ", test_path)
 st.success(params.load(test_path))
 
-st.header("Test catalog load")
+st.header("Test catalog load and save")
 
 df = catalog.load("example_iris_data")
 st.write(df)
@@ -97,4 +98,34 @@ test_path = (
 )
 st.success(os.path.exists(test_path))
 os.remove(test_path)
+st.success(os.path.exists(test_path))
+
+st.header("Test catalog partitioned load and save")
+
+st.write("Load list")
+
+df_list = catalog.list_partition("partition")
+st.write(df_list)
+
+
+st.write("Load empty partition")
+
+df_list = catalog.list_partition("empty_partition")
+st.write(df_list)
+
+st.write("Load partition file")
+
+df = catalog.load("partition", "iris")
+st.write(df)
+
+st.write("Save partition file")
+catalog.save("empty_partition", df, "iris2")
+df_list = catalog.list_partition("empty_partition")
+st.write(df_list)
+
+test_path = (
+    st.session_state["kedro"]["config"]["project_dir"] + "/data/02_intermediate/test/"
+)
+st.success(os.path.exists(test_path))
+shutil.rmtree(test_path)
 st.success(os.path.exists(test_path))

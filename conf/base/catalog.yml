@@ -64,3 +64,19 @@ example_iris_data_save_2:
 instance:
   type: MemoryDataSet
   layer: 02_intermediate
+
+partition:
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+  path: data/01_raw/
+  filename_suffix: .csv
+  layer: 02_raw
+
+empty_partition:
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+  path: data/02_intermediate/test/
+  filename_suffix: .csv
+  layer: 02_raw
