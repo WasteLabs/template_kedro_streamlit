@@ -1,4 +1,5 @@
-"""Create credentials file from secrets if credentials file is not present. Usefull for streamlit-cloud deployment."""
+"""Create credentials file from st.secrets if credentials file is not present. Used for streamlit-cloud deployment."""
+
 import os
 
 import streamlit as st
@@ -13,7 +14,7 @@ def pure_dict(dict_object):
         return {key: pure_dict(dict_object[key]) for key in dict_object}
 
 
-def create_credentials_file():
-    if not os.path.exists("conf/local"):
+def create_credentials_file(overwrite: bool = False):
+    if overwrite is True or not os.path.exists("conf/local/credentials.yml"):
         with open("conf/local/credentials.yml", "w") as f:
             yaml.dump(pure_dict(st.secrets["credentials"]), f)
