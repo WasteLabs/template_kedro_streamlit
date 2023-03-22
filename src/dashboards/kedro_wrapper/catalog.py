@@ -1,4 +1,4 @@
-"""Load, read and write data the same way as in kedro catalog session. An extra option list partitions"""
+"""Load, read and write data the same way as in kedro catalog session. An extra option list partitions. Note that external data changes have to be preceded by context.reload_catalog()"""
 
 import logging
 import typing as tp

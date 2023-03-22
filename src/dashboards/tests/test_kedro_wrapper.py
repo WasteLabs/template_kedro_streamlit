@@ -123,9 +123,39 @@ catalog.save("empty_partition", df, "iris2")
 df_list = catalog.list_partition("empty_partition")
 st.write(df_list)
 
+df2 = catalog.load("empty_partition", "iris2")
+st.write(df2)
+
 test_path = (
     st.session_state["kedro"]["config"]["project_dir"] + "/data/02_intermediate/test/"
 )
 st.success(os.path.exists(test_path))
 shutil.rmtree(test_path)
 st.success(os.path.exists(test_path))
+
+st.write("External (non kedro) partition edit:")
+
+catalog.save("empty_partition", df, "iris2")
+df_list = catalog.list_partition("empty_partition")
+st.write(df_list)
+
+test_path = (
+    st.session_state["kedro"]["config"]["project_dir"] + "/data/02_intermediate/test/"
+)
+st.success(os.path.exists(test_path))
+shutil.rmtree(test_path)
+st.success(os.path.exists(test_path))
+
+st.write("It should now be empty again (but we see it's  not):")
+df_list = catalog.list_partition("empty_partition")
+st.write(df_list)
+
+try:
+    df2 = catalog.load("empty_partition", "iris2")
+except:
+    st.error("Error, because file is not there anymore")
+
+context.reload_catalog()
+st.write("It should now be empty:")
+df_list = catalog.list_partition("empty_partition")
+st.write(df_list)
