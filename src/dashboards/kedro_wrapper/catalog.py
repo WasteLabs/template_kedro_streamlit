@@ -10,6 +10,13 @@ from kedro.io import DataSetError
 logger = logging.getLogger(__name__)
 
 
+def call_callable(data):
+    if callable(data):
+        return data()
+    else:
+        return data
+
+
 def load_full_partition(dataset):
     try:
         files = load(dataset)
@@ -31,7 +38,7 @@ def load(
     data = catalog.load(dataset)
     logger.info(f"Loading from catalog source registry: `{dataset}` with key `{key}`")
     if key is not None:
-        data = data[key]()
+        data = call_callable(data[key])
     return data
 
 
