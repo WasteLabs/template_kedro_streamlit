@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st  # noqa: I201
 
 from dashboards.kedro_wrapper import catalog, context, params
@@ -87,3 +89,12 @@ except:
 st.write("But this will work:")
 df_head = catalog.load("example_iris_data_save_2")
 st.write(df_head)
+
+st.write("Cleaning up the test file:")
+test_path = (
+    st.session_state["kedro"]["config"]["project_dir"]
+    + "/data/02_intermediate/iris_save_2.csv"
+)
+st.success(os.path.exists(test_path))
+os.remove(test_path)
+st.success(os.path.exists(test_path))
