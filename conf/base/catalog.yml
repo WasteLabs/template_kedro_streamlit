@@ -53,6 +53,14 @@ example_iris_data:
   filepath: data/01_raw/iris.csv
   layer: 01_raw
 
+example_iris_data_save:
+  type: MemoryDataSet
+
+example_iris_data_save_2:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/iris_save_2.csv
+  layer: 01_raw
+
 instance:
   type: MemoryDataSet
   layer: 02_intermediate
