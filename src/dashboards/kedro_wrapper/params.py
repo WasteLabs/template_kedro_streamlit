@@ -13,7 +13,7 @@ def get_nested_params(input: dict, key: list[str]):
     if not key:
         return input[key_i]
     else:
-        get_nested_params(input[key_i], key)
+        return get_nested_params(input[key_i], key)
 
 
 def load(
@@ -44,3 +44,4 @@ def save(
     params = st.session_state["kedro"]["parameters"]
     param_path = param_name.split(".")
     set_nested_params(params, param_path, value)
+
