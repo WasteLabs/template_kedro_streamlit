@@ -1,3 +1,4 @@
+import logging
 import typing as tp
 from copy import deepcopy
 
@@ -6,6 +7,8 @@ from kedro.framework.session import KedroSession
 
 from dashboards.kedro_wrapper import catalog, context
 from dashboards.kedro_wrapper.params import load, load_all, save
+
+logger = logging.getLogger(__name__)
 
 
 def execute_pipeline(
@@ -110,6 +113,8 @@ def initiate_pipeline(
         st.session_state["kedro"]["pipelines"][pipeline_name] = PipelineSession(
             pipeline_name, reload=reload, key=key
         )
+    else:
+        logger.info(f"Pipeline {pipeline_name} session already initiated")
     return st.session_state["kedro"]["pipelines"][pipeline_name]
 
 
