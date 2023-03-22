@@ -53,6 +53,43 @@ example_iris_data:
   filepath: data/01_raw/iris.csv
   layer: 01_raw
 
+example_iris_data_save:
+  type: MemoryDataSet
+
+example_iris_data_save_2:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/iris_save_2.csv
+  layer: 01_raw
+
 instance:
   type: MemoryDataSet
+  layer: 02_intermediate
+
+partition:
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+  path: data/01_raw/
+  filename_suffix: .csv
+  layer: 02_intermediate
+
+empty_partition:
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+  path: data/02_intermediate/test/
+  filename_suffix: .csv
+  layer: 02_intermediate
+
+example_iris_data_head:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/iris_head.csv
+  layer: 02_intermediate
+
+example_iris_data_head_partitioned:
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+  path: data/02_intermediate/example_iris_data_head_partitioned/
+  filename_suffix: .csv
   layer: 02_intermediate
