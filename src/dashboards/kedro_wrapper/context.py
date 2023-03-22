@@ -63,12 +63,18 @@ def load_context():
 def initiate_context():
     context = load_context()
     if "catalog" in st.session_state["kedro"]:
-        logger.info("Kedro catalog already initiated")
+        logger.warning("Kedro catalog already initiated.")
     else:
+        st.session_state["kedro"][
+            "catalog_counter"
+        ] = 0  # useful to force update cashed functions
         st.session_state["kedro"]["catalog"] = context.catalog
     if "parameters" in st.session_state["kedro"]:
-        logger.info("Kedro parameters already initiated")
+        logger.warning("Kedro parameters already initiated")
     else:
+        st.session_state["kedro"][
+            "parameters_counter"
+        ] = 0  # useful to force update cashed functions
         st.session_state["kedro"]["parameters"] = context.params
 
 
@@ -81,6 +87,9 @@ def reload_parameters():
     logger.info("Reloading Kedro parameters")
     if "parameters" in st.session_state["kedro"]:
         logger.warning("Kedro parameters already initiated and will be overwritten")
+        st.session_state["kedro"][
+            "parameters_counter"
+        ] += 1  # useful to force update cashed functions
     context = load_context()
     st.session_state["kedro"]["parameters"] = context.params
 
@@ -89,6 +98,9 @@ def reload_catalog():
     logger.info("Reloading Kedro parameters")
     if "catalog" in st.session_state["kedro"]:
         logger.warning("Kedro catalog already initiated and will be overwritten")
+        st.session_state["kedro"][
+            "catalog_counter"
+        ] += 1  # useful to force update cashed functions
     context = load_context()
     st.session_state["kedro"]["catalog"] = context.catalog
 
